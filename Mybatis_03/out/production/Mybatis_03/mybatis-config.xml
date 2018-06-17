@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--properties配置文件一定要放置在第一个,否则会报错-->
+    <!--引入配置文件-->
+    <properties resource="jdbc.properties"/>
+
+    <!--给类型设置别名-->
+    <typeAliases>
+        <!--<typeAlias type="mybatis.moduel.User" alias="User"/>-->
+        <!--<typeAlias type="mybatis.moduel.Blog" alias="Blog"/>-->
+        <!--如果是基于package,别名默认使用类名-->
+        <package name="mybatis.moduel"/>
+    </typeAliases>
+
+
+    <!--配置环境-->
+    <!--default默认使用开发环境-->
+    <environments default="development">
+        <!--这是开发环境-->
+        <environment id="development">
+            <!--事物管理器-->
+            <transactionManager type="jdbc"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--<mappers>-->
+        <!--<mapper resource="mybatis/moduel/User.xml"/>-->
+    <!--</mappers>-->
+    <!--配置映射文件-->
+    <mappers>
+        <!--使用xml的时候,指定的文件映射-->
+        <!--<mapper resource="mybatis/moduel/User.xml" />-->
+        <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="mybatis/moduel/BlogMapper.xml"/>
+        <!--基于注解的映射-->
+        <!--<package name="mybatis/mapper" />-->
+    </mappers>
+
+</configuration>

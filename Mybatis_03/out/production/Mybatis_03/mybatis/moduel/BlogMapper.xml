@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.moduel.Blog">
+    <!--向表中添加数据-->
+    <insert id="add" parameterType="Blog">
+        insert into t_blog(blog_title,content,user_id) values(#{title},#{content},#{user.id});
+    </insert>
+
+    <select id="list" resultType="Blog">
+        select * from t_blog
+    </select>
+
+    <!--添加对象的属性和表中的字段的映射-->
+    <!--定义Blog结果集-->
+    <resultMap id="BlogMap" type="Blog">
+        <id property="id" column="id" />
+        <result property="title" column="blog_title" />
+        <result property="content" column="content" />
+        <!--<result property="user" column="user_id" /> 这样写太想当然了,是会报错的-->
+        <association property="user" javaType="User">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="password" column="password" />
+        </association>
+    </resultMap>
+    <select id="blogList" resultMap="BlogMap" >
+        select u.*,b.* from t_user u inner join t_blog b where u.id = b.user_id
+    </select>
+
+
+</mapper>

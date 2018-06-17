@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="moduels.Message" table="t_message">
+        <id name="id" type="int" >
+            <generator class="native" />
+        </id>
+        <property name="title"/>
+
+        <!-- 配置一对多
+        name 是一的一方在多的一方的名字
+        -->
+
+        <!--cascade 在没有设置这个属性之前,删除外键的时候,会将关联的外键置空,完后删除外键
+            添加cascade属性的时候,会将两张表中关联的元素一起删除
+        -->
+        <!-- inverse 属性 设置为false的时候,为关系维护的主动方,
+        推荐将多的一方设置为主动方.在运行时会少发SQL,提高效率
+        -->
+        <set name="contents" cascade="all" inverse="true">
+            <key column="msg_id"></key>
+            <one-to-many class="moduels.Content"/>
+        </set>
+
+
+    </class>
+
+
+
+</hibernate-mapping>
+

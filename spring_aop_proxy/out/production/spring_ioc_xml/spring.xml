@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 创建HelloSpring bean
+    相当于new HelloSpring
+    bean默认是单例的
+    scope="singleton"[单例]
+    scope="prototype"[多例]-->
+    <bean name="hello" class="com.ibeifeng.spring.model.HelloSpring" scope="singleton" >
+        <!-- 属性注入-->
+        <property name="name" value="Spring" />
+    </bean>
+
+    <!-- 创建Dao bean-->
+    <bean name="groupDao" class="com.ibeifeng.spring.dao.GroupDao" />
+    <bean name="groupHibernateDao" class="com.ibeifeng.spring.dao.GroupHibernateDao" />
+
+    <!-- 创建Service bean-->
+    <bean name="groupService" class="com.ibeifeng.spring.service.GroupService" autowire="constructor">
+        <!--<property name="groupDao" ref="groupHibernateDao" />-->
+    </bean>
+    <!-- 创建Action bean-->
+    <bean name="groupAction" class="com.ibeifeng.spring.action.GroupAction" autowire="constructor">
+        <!--<property name="group" ref="grp1"></property>-->
+        <!--<property name="groupService" ref="groupService" />-->
+    </bean>
+
+    <!-- 创建Group bean-->
+    <bean name="grp1" class="com.ibeifeng.spring.model.Group" scope="prototype" >
+
+    </bean>
+    <!--<bean name="grp2" class="com.ibeifeng.spring.model.Group" >
+        <property name="id" value="2" />
+        <property name="name" value="Java组" />
+    </bean>-->
+
+    <!-- 创建user实例-->
+    <bean name="user" class="com.ibeifeng.spring.model.User">
+        <property name="names">
+            <!-- 数组注入-->
+            <array>
+                <value>张学良</value>
+                <value>张无忌</value>
+                <value>张三</value>
+            </array>
+        </property>
+        <!-- 集合注入(List)-->
+        <property name="groupList">
+            <list>
+                <!-- 引用上面定义好的grp1-->
+                <ref bean="grp1" />
+                <!--<ref bean="grp2" />-->
+            </list>
+        </property>
+        <!-- 集合注入(set)-->
+        <property name="groupSet">
+            <set>
+                <ref bean="grp1" />
+                <!--<ref bean="grp2" />-->
+                <!-- 以下引用无意义，set集合不允许重复-->
+                <ref bean="grp1" />
+            </set>
+        </property>
+        <!-- 集合注入(map)-->
+        <property name="groupMap">
+            <map>
+                <entry key="bdGroup" value-ref="grp1" />
+                <!--<entry key="javaGroup" value-ref="grp2" />-->
+            </map>
+        </property>
+    </bean>
+</beans>

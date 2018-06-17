@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="moduels.Emp" table="t_emp">
+        <id name="id" type="int" >
+            <generator class="native" />
+        </id>
+        <property name="empName"/>
+        <property name="empNo" />
+
+        <!--//创建多对一单向关联映射
+        name 是一的一方在多的一方的属性关联
+        column 是生成的列名-->
+        <!-- 配置多对一单向关联-->
+        <many-to-one name="dept" column="dept_id" fetch="join"/>
+        <!-- //在many-to-one的属性中添加fetch="join",  进行优化 ,之后会只发一条SQL ,默认是select
+            //这个属性只对load查询有效,如果没 有事用load,加不加fetch都是一样一样的
+        -->
+
+
+    </class>
+
+    <!--命名查询-->
+    <query name="findEmpById">
+        <![CDATA[
+            from Emp where id = :id
+        ]]>
+    </query>
+
+
+</hibernate-mapping>
+

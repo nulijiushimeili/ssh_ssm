@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- 需要映射的类全名   ORM对象映射关系-->
+    <class name="com.ibeifeng.hibernate.moduels.User" table="t_user">
+        <id name="id" type="int" >
+            <!--主键生成策略-->
+            <generator class="increment"/>
+
+        </id>
+        <property name="name" column="name"/>
+        <property name="password" column="password"/>
+        <property name="telephone" column="telephone"/>
+        <property name="username" column="username"/>
+        <!--其他属性,可以在这里设置类对应的属性在数据中的列名-->
+        <property name="isAdmin" column="is_admin"/>
+        <!---->
+    </class>
+
+</hibernate-mapping>
+

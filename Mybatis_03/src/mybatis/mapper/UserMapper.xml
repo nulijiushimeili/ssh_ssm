@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.UserMapper">
+    <!--向表中添加数据-->
+    <insert id="add" parameterType="User">
+        insert into t_user(name,password) values(#{name},#{password});
+    </insert>
+    <!--更新表中的数据-->
+    <update id="update" parameterType="User">
+        update t_user set name = #{name},password = #{password} where id = #{id};
+    </update>
+    <!--删除表中的数据-->
+    <delete id="delete" parameterType="User">
+        delete from t_user where id = #{id};
+    </delete>
+    <!--查询单个用户-->
+    <select id="load" parameterType="int" resultType="User">
+        select * from t_user where id = #{id};
+    </select>
+
+    <!--基于ResultMap的查询   处理多对一的关系-->
+    <resultMap id="userMap" type="User" >
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="password" column="password" />
+        <collection property="blogs" ofType="Blog" >  <!--注意这里是ofType -->
+            <id property="id" column="id" />
+            <result property="title" column="blog_title" />
+            <result property="content" column="content" />
+
+        </collection>
+
+    </resultMap>
+    <select id="userList" resultType="userMap">
+        select u.*,b.* from t_user u left join t_blog b on u.id = b.user_id
+    </select>
+</mapper>

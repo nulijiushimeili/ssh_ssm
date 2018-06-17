@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.moduel.User">
+    <!--向表中添加数据-->
+    <insert id="add" parameterType="User">
+        insert into t_user(name,password) values(#{name},#{password});
+    </insert>
+    <!--更新表中的数据-->
+    <update id="update" parameterType="User">
+        update t_user set name = #{name},password = #{password} where id = #{id};
+    </update>
+    <!--删除表中的数据-->
+    <delete id="delete" parameterType="User">
+        delete from t_user where id = #{id};
+    </delete>
+    <!--查询单个用户-->
+    <select id="load" parameterType="int" resultType="User">
+        select * from t_user where id = #{id};
+    </select>
+
+    <!--查询用户集合-->
+    <select id="list"  resultType="User">
+        select * from t_user;
+    </select>
+
+    <!--分页查询-->
+    <select id="page" parameterType="map" resultType="User">
+        select * from t_user limit #{pageOffset},#{pageSize}
+    </select>
+    
+    <!--带参查询用户列表-->
+    <select id="param" parameterType="map" resultType="User">
+        select * from t_user where name like #{name};
+    </select>
+
+    <!--排序-->
+    <select id="order" parameterType="map" resultType="User">
+        select * from t_user order by ${name} ${sort};
+    </select>
+
+
+</mapper>

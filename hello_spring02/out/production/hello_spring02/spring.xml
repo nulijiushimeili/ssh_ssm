@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--引入头文件-->
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--创建HelloSpring bean-->
+    <!-- 默认情况下 bean是单例的
+           singleton    单例
+        prototype  多例
+    -->
+    <bean name="hello" class="moduel.HelloSpring"  scope="singleton">
+        <!-- 属性注入-->
+        <property name="name" value="Spring"/>
+        
+    </bean>
+
+    <!-- Group bean-->
+    <bean name="grp1" class="moduel.Group" scope="prototype" >
+        <property name="id" value="1" />
+        <property name="name" value="java组"/>
+    </bean>
+
+    <!--<bean name="grp2" class="moduel.Group">-->
+        <!--<property name="id" value="2" />-->
+        <!--<property name="name" value="python组"/>-->
+    <!--</bean>-->
+
+    <!--<bean name="grp3" class="moduel.Group">-->
+        <!--<property name="id" value="3" />-->
+        <!--<property name="name" value="大数据组"/>-->
+    <!--</bean>-->
+
+
+    <bean name="user" class="moduel.User">
+        <!-- 数组注入-->
+        <property name="names">
+            <array>
+                <value>小明</value>
+                <value>小红</value>
+                <value>小刚</value>
+                <value>小强</value>
+            </array>
+        </property>
+        <!-- list 注入-->
+        <property name="groups">
+            <list>
+                <!--<ref bean="grp1" />-->
+                <!--<ref bean="grp2" />-->
+                <!--<ref bean="grp3" />-->
+            </list>
+        </property>
+        <!-- Map注入-->
+        <property name="maps" >
+            <map>
+                <!--<entry key="bigdata1" value-ref="grp1"></entry>-->
+                <!--<entry key="bigdata2" value-ref="grp2"></entry>-->
+                <!--<entry key="bigdata3" value-ref="grp3"></entry>-->
+            </map>
+
+        </property>
+    </bean>
+
+    <!-- Dap bean-->
+    <!--<bean name="groupDao" class="dao.GroupDao"></bean>-->
+
+    <!-- Hibernate Dao Bean-->
+    <bean name="groupHibernateDao" class="dao.GroupHibernateDao" />
+
+    <!-- Service bean-->
+    <bean name="groupService" class="service.GroupService" autowire="byType">
+        <!-- 如果我们要更换dao,只需要添加dao bean ,然后在下面更改ref的引用就好了-->
+        <!--<property name="groupDao" ref="groupDao" />-->
+    </bean>
+
+    <!-- 创建action bean-->
+    <bean name="groupAction" class="action.GroupAction" autowire="byType">
+        <!--<property name="group" ref="grp1"/>-->
+        <!--<property name="groupService" ref="groupService"/>-->
+    </bean>
+
+</beans>

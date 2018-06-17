@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+    <!--开启开发模式-->
+    <constant name="struts.devMode" value="true"/>
+    <!--启动动态方法调用-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <!--允许访问静态方法-->
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    
+    <package name="default" extends="struts-default">
+        <!--定义拦截器-->
+        <interceptors>
+            <interceptor name="helloInterceptor" class="struts2.interceptor.HelloInterceptor"/>
+        </interceptors>
+        
+        <!--配置全局通行方法-->
+        <global-allowed-methods>regex:.*</global-allowed-methods>
+        <!-- 配置action-->
+        <action name="hello" class="struts2.action.StrutsAction">
+            <result name="success">/helloStruts2.jsp</result>
+        </action>
+        <!--配置MessageAction-->
+        <action name="msgAdd" class="struts2.action.MessageAction" method="add">
+            <result name="success">/helloStruts2.jsp</result>
+        </action>
+        <action name="msgDel" class="struts2.action.MessageAction" method="del">
+            <result name="success">/helloStruts2.jsp</result>
+        </action>
+
+        <action name="login" class="struts2.action.LoginAction" method="login">
+            <result name="success">/index.jsp</result>
+            <result name="failed" >/login.jsp</result>
+        </action>
+
+        <!--通配符-->
+        <action name="*_*" class="struts2.action.{1}Action" method="{2}">
+            <!--Action引用拦截器-->
+            <interceptor-ref name="helloInterceptor"/>
+            <result name="success">/{1}/{2}.jsp</result>
+            <!--动态结果集-->
+            <result name="redirectUrl" >${url}</result>
+        </action>
+
+
+    </package>
+
+
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+

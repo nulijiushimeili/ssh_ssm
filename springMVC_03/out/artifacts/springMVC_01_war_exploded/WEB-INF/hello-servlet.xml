@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!--基于annotation-->
+    <!--开启注解支持-->
+    <context:annotation-config />
+    <!--在哪个包中找相关的类-->
+    <context:component-scan base-package="springMVC" />
+    <!--开启spring MVC的注解-->
+    <mvc:annotation-driven />
+    <!--处理静态资源-->
+    <!--一个*代表处理resource下的所有的资源,不包括目录和目录下的资源-->
+    <!--两个*代表处理resource文件夹下的所有资源,包括目录和目录下的文件-->
+    <mvc:resources mapping="/resource/**/" location="/resource/" />
+
+    <!--基于BeanNameUrlHandlerMapping-->
+    <!--这种方法不常用,-->
+    <!--<bean name="/hello.do" class="springMVC.controller.HelloController"></bean>-->
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/page/"/>
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!--配置全局异常处理-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
+        <property name="exceptionMappings">
+            <props>
+                <!--key:是哪种异常-->
+                <!--value:显示异常页面-->
+                <prop key="springMVC.exception.LoginException">error</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--配置文件上传-->
+    <!--配置Multipart文件处理器,必须添加id属性-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5000000"/>
+    </bean>
+</beans>
+

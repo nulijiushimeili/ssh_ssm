@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- 需要映射的类全名   ORM对象映射关系-->
+    <class name="com.ibeifeng.hibernate.moduels.House" table="t_house">
+        <id name="id" type="int" >
+            <!--主键生成策略-->
+            <generator class="increment"/>
+
+        </id>
+       <property name="title"/>
+        <property name="descreption"/>
+        <property name="price"/>
+        <property name="pubDate"/>
+        <property name="floorage"/>
+        <property name="concat"/>
+        <!---->
+        <many-to-one name="user" column="user_id"></many-to-one>
+    </class>
+
+</hibernate-mapping>
+

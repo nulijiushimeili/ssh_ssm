@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="moduels.Emp" table="t_emp">
+        <id name="id" type="int" >
+            <generator class="native" />
+        </id>
+        <property name="empName"/>
+        <property name="empNo" />
+
+        <!--//创建多对一单向关联映射
+        name 是一的一方在多的一方的属性关联
+        column 是生成的列名-->
+        <!-- 配置多对一单向关联-->
+        <many-to-one name="dept" column="dept_id"/>
+
+
+    </class>
+
+
+
+</hibernate-mapping>
+
