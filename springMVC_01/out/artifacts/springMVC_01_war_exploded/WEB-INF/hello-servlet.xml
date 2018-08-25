@@ -17,11 +17,12 @@
     <!--在哪个包中找相关的类-->
     <context:component-scan base-package="springMVC" />
 
+    <!--添加MVC驱动-->
     <mvc:annotation-driven />
 
     <!--基于BeanNameUrlHandlerMapping-->
     <!--这种方法不常用,-->
-    <!--<bean name="/hello.do" class="springMVC.controller.HelloController"></bean>-->
+    <!--<bean name="/hello.do" class="springMVC.controller.HelloController" />-->
 
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

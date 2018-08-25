@@ -12,13 +12,6 @@ import java.util.Map;
 @Controller("login")
 public class LoginController {
 
-//    @RequestMapping(name = "/login")
-//    public String login(String username, Map<String,Object> context){
-//        System.out.println("传进来的参数是" + username);
-//        context.put("username",username);
-//        return "login";
-//    }
-
 //    推荐使用
     @RequestMapping(value = "/login")
     public String login(String username, Model model){
